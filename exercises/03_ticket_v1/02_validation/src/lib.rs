@@ -1,3 +1,5 @@
+use core::panic;
+
 struct Ticket {
     title: String,
     description: String,
@@ -17,8 +19,31 @@ impl Ticket {
     // You'll have to use what you learned in the previous exercises,
     // as well as some `String` methods. Use the documentation of Rust's standard library
     // to find the most appropriate options -> https://doc.rust-lang.org/std/string/struct.String.html
+
     fn new(title: String, description: String, status: String) -> Self {
-        todo!();
+        //        todo!();
+        if title.is_empty() {
+            panic!("Title cannot be empty");
+        }
+        if description.is_empty() {
+            panic!("Description cannot be empty");
+        }
+        if title.len() > 50 {
+            panic!("Title cannot be longer than 50 bytes");
+        }
+        if description.len() > 500 {
+            panic!("Description cannot be longer than 500 bytes");
+        }
+        if status != "TO-DO" && status != "IN PROGRESS" && status != "DONE" {
+            panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
+        }
+        let status = match status.to_uppercase().as_str() {
+            "TO-DO" => "To-Do",
+            "IN PROGRESS" => "In Progress",
+            "DONE" => "Done",
+            _ => panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed"),
+        };
+        
         Self {
             title,
             description,
